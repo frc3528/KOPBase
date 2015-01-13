@@ -2,6 +2,7 @@ package org.usfirst.frc.team3528.robot;
 
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Joystick;
@@ -17,9 +18,10 @@ public class Robot extends SampleRobot {
     RobotDrive myRobot;  
     Joystick joyStick;  
     Compressor compressor;
-    Solenoid solenoid1;
-    Solenoid solenoid2;
+    DoubleSolenoid solenoid1;
     Button aButton;
+    Button bButton;
+    
     
     // variables to hold left and right joystick values
     double left;
@@ -36,10 +38,12 @@ public class Robot extends SampleRobot {
         compressor = new Compressor(1);
         compressor.setClosedLoopControl(true);
         
-        solenoid1 = new Solenoid(1, 1);
-        solenoid2 = new Solenoid(1, 3);
+        
+        
+        solenoid1 = new DoubleSolenoid(1, 1, 3);
         
         aButton = new JoystickButton(joyStick, 1);
+        bButton = new JoystickButton(joyStick, 2);
         
     }
 
@@ -48,16 +52,17 @@ public class Robot extends SampleRobot {
     public void operatorControl() {
    
     	
-        while (isOperatorControl() && isEnabled()) {
+        while ( isOperatorControl() && isEnabled() ) {
         	
         	// get left and right stick y axis values (invert them)
         	left = joyStick.getRawAxis(1) * -1;
         	right = joyStick.getRawAxis(5) * -1;
         	
         	// check for button A
-        	if (aButton.get()) {
-        		solenoid1.set(true);
-        		solenoid2.set(false);
+        	if ( aButton.get() ) {
+        		solenoid1.set( DoubleSolenoid.Value.kForward );
+        	} else if ( bButton.get() ) {
+        		solenoid1.set( DoubleSolenoid.Value.kReverse );
         	}
         	
         	// drive
