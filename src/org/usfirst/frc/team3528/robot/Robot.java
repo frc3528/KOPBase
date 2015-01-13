@@ -42,8 +42,8 @@ public class Robot extends SampleRobot {
         compressor = new Compressor(1);
         compressor.setClosedLoopControl(true);
         
-        solenoid1 = new Solenoid(1);
-        solenoid2 = new Solenoid(3);
+        solenoid1 = new Solenoid(1, 1);
+        solenoid2 = new Solenoid(1, 3);
         
         aButton = new JoystickButton(joyStick, 1);
         
