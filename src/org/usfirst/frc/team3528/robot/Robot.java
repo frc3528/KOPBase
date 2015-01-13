@@ -1,10 +1,14 @@
 package org.usfirst.frc.team3528.robot;
 
 
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This is a demo program showing the use of the RobotDrive class, specifically it 
@@ -23,14 +27,26 @@ import edu.wpi.first.wpilibj.Timer;
 public class Robot extends SampleRobot {
     RobotDrive myRobot;  
     Joystick joyStick;  
-    
+    Compressor compressor;
+    Solenoid solenoid1;
+    Solenoid solenoid2;
     double left;
     double right;
+    Button aButton;
     
     public Robot() {
         myRobot = new RobotDrive(0, 1);
         
         joyStick = new Joystick(0);
+        
+        compressor = new Compressor(1);
+        compressor.setClosedLoopControl(true);
+        
+        solenoid1 = new Solenoid(1);
+        solenoid2 = new Solenoid(3);
+        
+        aButton = new JoystickButton(joyStick, 1);
+        
     }
 
     
@@ -39,10 +55,15 @@ public class Robot extends SampleRobot {
      */
     public void operatorControl() {
    
-        
+    	
         while (isOperatorControl() && isEnabled()) {
         	left = joyStick.getRawAxis(1) * -1;
         	right = joyStick.getRawAxis(5) * -1;
+        	
+        	if (aButton.get()) {
+        		solenoid1.set(true);
+        		solenoid2.set(false);
+        	}
         	
         	myRobot.tankDrive(Utils.rampSpeed(left, .5), Utils.rampSpeed(right, .5));
             
