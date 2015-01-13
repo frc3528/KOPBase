@@ -44,9 +44,7 @@ public class Robot extends SampleRobot {
     }
 
     
-    /**
-     * Runs the motors with tank steering.
-     */
+    // teleop
     public void operatorControl() {
    
     	
