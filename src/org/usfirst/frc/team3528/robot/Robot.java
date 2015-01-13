@@ -38,7 +38,7 @@ public class Robot extends SampleRobot {
         compressor.setClosedLoopControl(true);
         
         
-        
+        // Working Solenoid
         solenoid1 = new DoubleSolenoid(1, 1, 3);
         
         aButton = new JoystickButton(joyStick, 1);
