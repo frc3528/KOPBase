@@ -1,6 +1,7 @@
 package org.usfirst.frc.team3528.robot;
 
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SampleRobot;
@@ -20,6 +21,7 @@ public class Robot extends SampleRobot {
     DoubleSolenoid solenoid1;
     Button aButton;
     Button bButton;
+    CameraServer server;
     
     
     // variables to hold left and right joystick values
@@ -43,6 +45,11 @@ public class Robot extends SampleRobot {
         
         aButton = new JoystickButton(joyStick, 1);
         bButton = new JoystickButton(joyStick, 2);
+        
+        server = CameraServer.getInstance();
+        server.setQuality(50);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        server.startAutomaticCapture("cam0");
         
     }
 
